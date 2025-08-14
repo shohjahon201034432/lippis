@@ -1,0 +1,27 @@
+<div class="main">
+    <div class="breadcrumb">
+        <a routerLink="/home">← Bosh sahifa</a>
+    </div>
+
+    <h1 style="text-align: left; margin-left: 52px; margin-bottom: 32px; color: #1a1a80">Classic kepkalar</h1>
+
+    <div class="filter-controls">
+        <div class="input-group">
+            <label for="min-price">Min narx</label>
+            <input type="number" id="min-price" [(ngModel)]="minPrice" placeholder="Masalan: 0" />
+        </div>
+        <div class="input-group">
+            <label for="max-price">Max narx</label>
+            <input type="number" id="max-price" [(ngModel)]="maxPrice" placeholder="Masalan: 9999" />
+        </div>
+    </div>
+
+    <div class="products">
+        <div class="product-card" *ngFor="let item of filteredProducts">
+            <img [src]="item.img" [alt]="item.name" />
+            <h4 class="name">{{ item.name }}</h4>
+            <h4 class="price">{{ item.price | currency:'USD' }}</h4>
+            <button class="buy-btn">Harid qilish</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="main">
+    <div class="txt">
+        <h1>
+            Bizning onlayn do'konimizdan yuqori sifatli va moslashtirilgan kepkalar
+        </h1>
+    </div>
+
+    <div class="carousel-wrapper">
+        <div class="carousel">
+            <button (click)="prevImage()" class="nav-btn left">&#10094;</button>
+
+            <img [src]="images[currentIndex]" alt="hat" class="carousel-img" />
+
+            <button (click)="nextImage()" class="nav-btn right">&#10095;</button>
+        </div>
+
+        <div class="dots">
+            <span *ngFor="let img of images; let i = index" class="dot" [class.active]="i === currentIndex"
+                (click)="goToImage(i)">
+            </span>
+        </div>
+    </div>
+</div>
