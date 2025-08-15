@@ -1,23 +1,52 @@
 <div class="main">
-    <div class="txt">
-        <h1>
+    <div class="hero-section">
+        <h1 class="main-title">
             Bizning onlayn do'konimizdan yuqori sifatli va moslashtirilgan kepkalar
         </h1>
+
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <button (click)="prevImage()" class="nav-btn left">&#10094;</button>
+                <img [src]="images[currentIndex]" alt="hat" class="carousel-img" />
+                <button (click)="nextImage()" class="nav-btn right">&#10095;</button>
+            </div>
+            <div class="dots">
+                <span *ngFor="let img of images; let i = index" class="dot" [class.active]="i === currentIndex"
+                    (click)="goToImage(i)">
+                </span>
+            </div>
+        </div>
     </div>
 
-    <div class="carousel-wrapper">
-        <div class="carousel">
-            <button (click)="prevImage()" class="nav-btn left">&#10094;</button>
+    <div class="categories">
+        <h2>Kepka Kategoriyalari</h2>
+        <div class="category-grid">
+            <div class="category-card" (click)="navigateToCategory('classic')">
+                <img src="https://media.istockphoto.com/id/1319142658/photo/black-baseball-hat.webp?a=1&b=1&s=612x612&w=0&k=20&c=6IZGnObNn3KUPGQXCENSnXtKxtDmg9V63DSksyBoQgE="
+                    alt="Classic Caps">
+                <div class="category-overlay">
+                    <h3>Classic Caps</h3>
+                    <p>Klassik va sodda dizaynlar</p>
+                </div>
+            </div>
 
-            <img [src]="images[currentIndex]" alt="hat" class="carousel-img" />
+            <div class="category-card" (click)="navigateToCategory('snapback')">
+                <img src="https://media.istockphoto.com/id/636241652/photo/white-empty-baseball-cap.jpg?s=612x612&w=0&k=20&c=QjABC7pfgMAfUxcddaQT1TaOKc8kho0cR2Yl65CJRYI="
+                    alt="Snapback Caps">
+                <div class="category-overlay">
+                    <h3>Snapback Caps</h3>
+                    <p>Zamonaviy va sport uslubida</p>
+                </div>
+            </div>
 
-            <button (click)="nextImage()" class="nav-btn right">&#10095;</button>
-        </div>
-
-        <div class="dots">
-            <span *ngFor="let img of images; let i = index" class="dot" [class.active]="i === currentIndex"
-                (click)="goToImage(i)">
-            </span>
+            <div class="category-card" (click)="navigateToCategory('truck')">
+                <img src="https://media.istockphoto.com/id/1480922000/photo/side-view-realistic-cap-mock-up-in-green-khaki-texture-is-a-high-resolution-hat-mockup-to.jpg?s=612x612&w=0&k=20&c=v36a3Qg7ttnP2E3GmoMr-NODcsXgy3ekwX9fuldgwe8="
+                    alt="Truck Caps">
+                <div class="category-overlay">
+                    <h3>Truck Caps</h3>
+                    <p>Qulaylik va yengillik uchun</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

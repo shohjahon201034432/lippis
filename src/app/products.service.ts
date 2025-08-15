@@ -1,10 +1,16 @@
 import { Injectable, signal } from '@angular/core';
 
+export interface Product {
+  name: string,
+  price: number,
+  img: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  classic = signal([
+  classic = signal<Product[]>([
     {
       name: 'Classic Black Cap',
       price: 19.99,
@@ -37,7 +43,7 @@ export class ProductsService {
     }
   ]);
 
-  snapback = signal([
+  snapback = signal<Product[]>([
     {
       name: 'Snapback White Logo',
       price: 24.99,
@@ -70,7 +76,7 @@ export class ProductsService {
     }
   ]);
 
-  truck = signal([
+  truck = signal<Product[]>([
     {
       name: 'Truck Mesh Green',
       price: 17.99,
@@ -102,4 +108,13 @@ export class ProductsService {
       img: 'https://media.istockphoto.com/id/1427572529/vector/blue-hip-hop-cap-with-mesh-four-panel-back-template.jpg?s=612x612&w=0&k=20&c=7T7-kVIz3wV6EFrr9wcAAyU8ZQx3ZSoxiGeE-0Nso-I='
     }
   ]);
+
+  getProductByName(name: string): Product | null {
+    const allProducts = [
+      ...this.classic(),
+      ...this.snapback(),
+      ...this.truck()
+    ];
+    return allProducts.find(p => p.name === name) || null;
+  }
 }

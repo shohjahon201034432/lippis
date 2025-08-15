@@ -1,0 +1,12 @@
+<div *ngIf="product" class="buy-container">
+    <button class="back-btn" (click)="goBack()">← Orqaga</button>
+
+    <div class="product-card">
+        <img [src]="product.img" [alt]="product.name" />
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ product.price | currency:'USD' }}</p>
+        <p class="desc">Mahsulot haqida tafsilotlar shu yerga yoziladi...</p>
+
+        <button class="confirm-btn">Buyurtma berish</button>
+    </div>
+</div>
