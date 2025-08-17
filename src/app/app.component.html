@@ -1,14 +1,18 @@
-<nav>
-  <div class="name">
-    <h1>LIPPIS</h1>
+<header class="main-header">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">LIPPIS</a>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a routerLink="/classic" routerLinkActive="active">Classic</a></li>
+        <li><a routerLink="/snapback" routerLinkActive="active">Snapbacks</a></li>
+        <li><a routerLink="/truck" routerLinkActive="active">Truckers</a></li>
+        <li><a routerLink="/favourites" routerLinkActive="active">Favourites</a></li>
+      </ul>
+    </nav>
   </div>
-
-  <div class="comp">
-    <a routerLink="/classic">Classic</a>
-    <a routerLink="/snapback">Snapbacks</a>
-    <a routerLink="/truck">Truckers</a>
-  </div>
-</nav>
+</header>
 
 <div class="router">
   <router-outlet></router-outlet>

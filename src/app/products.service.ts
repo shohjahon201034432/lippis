@@ -1,120 +1,207 @@
 import { Injectable, signal } from '@angular/core';
 
 export interface Product {
-  name: string,
-  price: number,
-  img: string
+  name: string;
+  price: number;
+  img: string;
+  images: string[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   classic = signal<Product[]>([
     {
       name: 'Classic Black Cap',
       price: 19.99,
-      img: 'https://media.istockphoto.com/id/1319142658/photo/black-baseball-hat.webp?a=1&b=1&s=612x612&w=0&k=20&c=6IZGnObNn3KUPGQXCENSnXtKxtDmg9V63DSksyBoQgE='
+      img: 'https://media.istockphoto.com/id/864713752/photo/baseball-hat.jpg?s=612x612&w=0&k=20&c=rSiZHY3_-km8Cx0fgFWWG3Rh2PlcAnFaFtJybApBq_s=',
+      images: [
+        'https://media.istockphoto.com/id/864713752/photo/baseball-hat.jpg?s=612x612&w=0&k=20&c=rSiZHY3_-km8Cx0fgFWWG3Rh2PlcAnFaFtJybApBq_s=',
+        'https://media.istockphoto.com/id/526131500/photo/hat-on-white-background.jpg?s=612x612&w=0&k=20&c=wEaZqxqsCAsyhT-qsWh9QRxc1Eu0-kmkkfMJTdmS2qY=',
+        'https://media.istockphoto.com/id/1151194505/photo/black-canvas-fabric-cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=yPiVzW0flwxlODb6ybwhp0AZdvJZfiG-Hn0P0HP23cE='
+      ],
     },
     {
       name: 'Classic Blue Cap',
       price: 21.99,
-      img: 'data:image/jpeg;base64,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'
+      img: 'data:image/jpeg;base64,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',
+      images: [
+        'data:image/jpeg;base64,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',
+        'https://media.istockphoto.com/id/182241866/photo/blue-baseball-cap.jpg?s=612x612&w=0&k=20&c=GVu1dRfkwQzG6Q-ZXab22Z_I4KEBHgqjPx918Ehvugc=',
+        'https://media.istockphoto.com/id/1038618324/photo/blue-hat-isolated.jpg?s=612x612&w=0&k=20&c=6Tc7ExzKhb8XdvZWIMe6EI41R6Ru_v6oEpB29vwbGWE=',
+      ],
     },
     {
       name: 'Classic Red Cap',
       price: 20.99,
-      img: 'data:image/jpeg;base64,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'
+      img: 'https://media.istockphoto.com/id/474219511/photo/red-baseball-cap.jpg?s=612x612&w=0&k=20&c=QOMxnZTkgTpGcyA6TM1Ty5BwUbRKnTz8DVPDkrEQfqs=',
+      images: [
+        'https://media.istockphoto.com/id/474219511/photo/red-baseball-cap.jpg?s=612x612&w=0&k=20&c=QOMxnZTkgTpGcyA6TM1Ty5BwUbRKnTz8DVPDkrEQfqs=',
+        'https://media.istockphoto.com/id/613516352/photo/red-baseball-cap.jpg?s=612x612&w=0&k=20&c=nFHaUAMp7YFPuTFfBkyQmwTbRBSkIAEOsNRW-ZZKTy8=',
+        'https://media.istockphoto.com/id/687059378/photo/red-hat.jpg?s=612x612&w=0&k=20&c=xWLiXRXce9qxjt_LLeJbsbMmgZu4ywIlyZIyJSpZLRw=',
+      ],
     },
     {
       name: 'Classic White Cap',
       price: 18.99,
-      img: 'https://media.istockphoto.com/id/898398692/photo/white-hat.jpg?s=612x612&w=0&k=20&c=8wlK0AnL7TqE7Y3p7TLO3joj9---IapYK-_Tn_QVbqs='
+      img: 'https://media.istockphoto.com/id/898398692/photo/white-hat.jpg?s=612x612&w=0&k=20&c=8wlK0AnL7TqE7Y3p7TLO3joj9---IapYK-_Tn_QVbqs=',
+      images: [
+        'https://media.istockphoto.com/id/898398692/photo/white-hat.jpg?s=612x612&w=0&k=20&c=8wlK0AnL7TqE7Y3p7TLO3joj9---IapYK-_Tn_QVbqs=',
+        'https://media.istockphoto.com/id/1248211740/photo/cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=efPkV4qfX2bPmqN07-PtaYerR-MZZvUwFd-DORzGCAY=',
+        'https://media.istockphoto.com/id/1151188517/photo/white-canvas-fabric-cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=dwwQ8KJAJg-_es7JATr8fGJxeUgfRZ9bV2k4ZhMmLlw=',
+      ],
     },
     {
-      name: 'Classic White Cap',
+      name: 'Classic Yellow Cap',
       price: 22.99,
-      img: 'https://media.istockphoto.com/id/964313670/photo/cap-on-white-background.jpg?s=612x612&w=0&k=20&c=jNsrpNTAh1j58BcVUPV5opKEvMoZV9LobrdDSP8nh7w='
+      img: 'https://media.istockphoto.com/id/2211895349/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=Nsp_rGL7Aq7ZQyMA0VMz9LRyCbM3ZYwEgL3qhcV37Lw=',
+      images: [
+        'https://media.istockphoto.com/id/2211895349/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=Nsp_rGL7Aq7ZQyMA0VMz9LRyCbM3ZYwEgL3qhcV37Lw=',
+        'https://media.istockphoto.com/id/2215790684/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=5Ct9KDxHYhmMtwNaeaqpqOjxYfROSihm-0AJEqkbjRo=',
+        'https://media.istockphoto.com/id/2211895358/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=bies6VcgFuX328MFHgEywFEoMRXwf9GlAC26IVDUXRQ=',
+      ],
     },
     {
       name: 'Classic Olive Cap',
       price: 19.49,
-      img: 'https://media.istockphoto.com/id/898398692/photo/white-hat.jpg?s=612x612&w=0&k=20&c=8wlK0AnL7TqE7Y3p7TLO3joj9---IapYK-_Tn_QVbqs='
-    }
+      img: 'https://media.istockphoto.com/id/2215790666/photo/one-stylish-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=NgbCFyOOOzWDME35bmLu6QN-rC_OQyk6TKgxXco2KeQ=',
+      images: [
+        'https://media.istockphoto.com/id/2215790666/photo/one-stylish-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=NgbCFyOOOzWDME35bmLu6QN-rC_OQyk6TKgxXco2KeQ=',
+        'https://media.istockphoto.com/id/2215790681/photo/one-stylish-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=Dto6VIrJC4VopgNSxCqAj3jjgPq6tt2hPqDyanWHYIU=',
+      ],
+    },
   ]);
 
   snapback = signal<Product[]>([
     {
       name: 'Snapback White Logo',
       price: 24.99,
-      img: 'https://media.istockphoto.com/id/636241652/photo/white-empty-baseball-cap.jpg?s=612x612&w=0&k=20&c=QjABC7pfgMAfUxcddaQT1TaOKc8kho0cR2Yl65CJRYI='
+      img: 'https://media.istockphoto.com/id/636241652/photo/white-empty-baseball-cap.jpg?s=612x612&w=0&k=20&c=QjABC7pfgMAfUxcddaQT1TaOKc8kho0cR2Yl65CJRYI=',
+      images: [
+        'https://images.pexels.com/photos/16843089/pexels-photo-16843089/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Snapback Red Script',
       price: 26.99,
-      img: 'https://media.istockphoto.com/id/909956104/photo/red-baseball-cap-mock-up-blank-hat-template-isolated-on-white-background-3d-rendering.jpg?s=612x612&w=0&k=20&c=dpNrOe_a-1kVZUUIXn3JHNgJ3CHIzAsIcmDpFzOgA4I='
+      img: 'https://media.istockphoto.com/id/909956104/photo/red-baseball-cap-mock-up-blank-hat-template-isolated-on-white-background-3d-rendering.jpg?s=612x612&w=0&k=20&c=dpNrOe_a-1kVZUUIXn3JHNgJ3CHIzAsIcmDpFzOgA4I=',
+      images: [
+        'https://images.pexels.com/photos/9733276/pexels-photo-9733276.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/9733277/pexels-photo-9733277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/9733278/pexels-photo-9733278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Snapback White Classic',
       price: 23.49,
-      img: 'https://media.istockphoto.com/id/1220512492/photo/blank-white-jeans-snapback-mockup-side-view.jpg?s=612x612&w=0&k=20&c=LGkJF-z6wPsyoGDf5vI1DLcVevvMmlNlt48PwK57wpk='
+      img: 'https://media.istockphoto.com/id/1220512492/photo/blank-white-jeans-snapback-mockup-side-view.jpg?s=612x612&w=0&k=20&c=LGkJF-z6wPsyoGDf5vI1DLcVevvMmlNlt48PwK57wpk=',
+      images: [
+        'https://images.pexels.com/photos/16843089/pexels-photo-16843089/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Snapback Black Tag',
       price: 25.99,
-      img: 'https://media.istockphoto.com/id/1184218578/vector/vector-3d-realistic-render-black-blank-baseball-snapback-cap-icon-closeup-isolated-on-white.jpg?s=612x612&w=0&k=20&c=3OzJaWF2qCbYoJzwrlRO3w4IbHta1Bn7Jc4HG0QcenU='
+      img: 'https://media.istockphoto.com/id/1184218578/vector/vector-3d-realistic-render-black-blank-baseball-snapback-cap-icon-closeup-isolated-on-white.jpg?s=612x612&w=0&k=20&c=3OzJaWF2qCbYoJzwrlRO3w4IbHta1Bn7Jc4HG0QcenU=',
+      images: [
+        'https://images.pexels.com/photos/16843075/pexels-photo-16843075/free-photo-of-a-man-with-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843080/pexels-photo-16843080/free-photo-of-a-man-with-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843085/pexels-photo-16843085/free-photo-of-a-man-with-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Snapback Camo',
       price: 28.99,
-      img: 'https://media.istockphoto.com/id/184351921/photo/baseball-trucker-cap.jpg?s=612x612&w=0&k=20&c=XvZl1rZPdfSVPO6APSHQpVSx65CECjTw01Qm-4j8Otk='
+      img: 'https://media.istockphoto.com/id/184351921/photo/baseball-trucker-cap.jpg?s=612x612&w=0&k=20&c=XvZl1rZPdfSVPO6APSHQpVSx65CECjTw01Qm-4j8Otk=',
+      images: [
+        'https://images.pexels.com/photos/20349911/pexels-photo-20349911/free-photo-of-grey-cap-on-a-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Snapback Grey Urban',
       price: 22.49,
-      img: 'https://media.istockphoto.com/id/1480922000/photo/side-view-realistic-cap-mock-up-in-green-khaki-texture-is-a-high-resolution-hat-mockup-to.jpg?s=612x612&w=0&k=20&c=v36a3Qg7ttnP2E3GmoMr-NODcsXgy3ekwX9fuldgwe8='
-    }
+      img: 'https://media.istockphoto.com/id/1480922000/photo/side-view-realistic-cap-mock-up-in-green-khaki-texture-is-a-high-resolution-hat-mockup-to.jpg?s=612x612&w=0&k=20&c=v36a3Qg7ttnP2E3GmoMr-NODcsXgy3ekwX9fuldgwe8=',
+      images: [
+        'https://images.pexels.com/photos/20349911/pexels-photo-20349911/free-photo-of-grey-cap-on-a-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
+    },
   ]);
 
   truck = signal<Product[]>([
     {
       name: 'Truck Mesh Green',
       price: 17.99,
-      img: 'https://media.istockphoto.com/id/1480922000/photo/side-view-realistic-cap-mock-up-in-green-khaki-texture-is-a-high-resolution-hat-mockup-to.jpg?s=612x612&w=0&k=20&c=v36a3Qg7ttnP2E3GmoMr-NODcsXgy3ekwX9fuldgwe8='
+      img: 'https://media.istockphoto.com/id/1480922000/photo/side-view-realistic-cap-mock-up-in-green-khaki-texture-is-a-high-resolution-hat-mockup-to.jpg?s=612x612&w=0&k=20&c=v36a3Qg7ttnP2E3GmoMr-NODcsXgy3ekwX9fuldgwe8=',
+      images: [
+        'https://images.pexels.com/photos/20349911/pexels-photo-20349911/free-photo-of-grey-cap-on-a-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Truck Mesh White',
       price: 18.99,
-      img: 'https://media.istockphoto.com/id/1184962940/photo/blank-plain-cap-hat-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=RYDIZQyQFsFc4wnCiKSBHL6D7kXAa-hu_rAbx0g08qg='
+      img: 'https://media.istockphoto.com/id/1184962940/photo/blank-plain-cap-hat-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=RYDIZQyQFsFc4wnCiKSBHL6D7kXAa-hu_rAbx0g08qg=',
+      images: [
+        'https://images.pexels.com/photos/16843089/pexels-photo-16843089/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Truck White Logo',
       price: 19.49,
-      img: 'data:image/jpeg;base64,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'
+      img: 'data:image/jpeg;base64,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',
+      images: [
+        'https://images.pexels.com/photos/1184962940/pexels-photo-1184962940/free-photo-of-blank-plain-cap-hat-isolated-on-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843089/pexels-photo-16843089/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Truck White Strapback',
       price: 20.99,
-      img: 'https://media.istockphoto.com/id/1163958328/photo/trucker-hat-or-mesh-cap-isolated.jpg?s=612x612&w=0&k=20&c=BzcqPaIauBYBmPlAF-D7HJV6EOUTEhNfjIkXTYUUSlE='
+      img: 'https://media.istockphoto.com/id/1163958328/photo/trucker-hat-or-mesh-cap-isolated.jpg?s=612x612&w=0&k=20&c=BzcqPaIauBYBmPlAF-D7HJV6EOUTEhNfjIkXTYUUSlE=',
+      images: [
+        'https://images.pexels.com/photos/16843089/pexels-photo-16843089/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Truck Classic Black',
       price: 21.99,
-      img: 'https://media.istockphoto.com/id/184351921/photo/baseball-trucker-cap.jpg?s=612x612&w=0&k=20&c=XvZl1rZPdfSVPO6APSHQpVSx65CECjTw01Qm-4j8Otk='
+      img: 'https://media.istockphoto.com/id/184351921/photo/baseball-trucker-cap.jpg?s=612x612&w=0&k=20&c=XvZl1rZPdfSVPO6APSHQpVSx65CECjTw01Qm-4j8Otk=',
+      images: [
+        'https://images.pexels.com/photos/17221290/pexels-photo-17221290/free-photo-of-man-in-white-t-shirt-wearing-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349880/pexels-photo-20349880/free-photo-of-black-cap-on-a-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/20349884/pexels-photo-20349884/free-photo-of-back-of-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
     },
     {
       name: 'Truck Navy Foam',
       price: 19.99,
-      img: 'https://media.istockphoto.com/id/1427572529/vector/blue-hip-hop-cap-with-mesh-four-panel-back-template.jpg?s=612x612&w=0&k=20&c=7T7-kVIz3wV6EFrr9wcAAyU8ZQx3ZSoxiGeE-0Nso-I='
-    }
+      img: 'https://media.istockphoto.com/id/1427572529/vector/blue-hip-hop-cap-with-mesh-four-panel-back-template.jpg?s=612x612&w=0&k=20&c=7T7-kVIz3wV6EFrr9wcAAyU8ZQx3ZSoxiGeE-0Nso-I=',
+      images: [
+        'https://images.pexels.com/photos/15989932/pexels-photo-15989932/free-photo-of-a-blue-baseball-cap-and-a-blue-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/15989931/pexels-photo-15989931/free-photo-of-a-blue-baseball-cap-and-a-blue-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/15989933/pexels-photo-15989933/free-photo-of-a-blue-baseball-cap-and-a-blue-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
+    },
   ]);
 
   getProductByName(name: string): Product | null {
-    const allProducts = [
-      ...this.classic(),
-      ...this.snapback(),
-      ...this.truck()
-    ];
-    return allProducts.find(p => p.name === name) || null;
+    const allProducts = [...this.classic(), ...this.snapback(), ...this.truck()];
+    return allProducts.find((p) => p.name === name) || null;
   }
 }
