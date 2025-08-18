@@ -5,6 +5,7 @@ export interface Product {
   price: number;
   img: string;
   images: string[];
+  category: string
 }
 
 @Injectable({
@@ -21,6 +22,7 @@ export class ProductsService {
         'https://media.istockphoto.com/id/526131500/photo/hat-on-white-background.jpg?s=612x612&w=0&k=20&c=wEaZqxqsCAsyhT-qsWh9QRxc1Eu0-kmkkfMJTdmS2qY=',
         'https://media.istockphoto.com/id/1151194505/photo/black-canvas-fabric-cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=yPiVzW0flwxlODb6ybwhp0AZdvJZfiG-Hn0P0HP23cE='
       ],
+      category: 'classic'
     },
     {
       name: 'Classic Blue Cap',
@@ -31,6 +33,7 @@ export class ProductsService {
         'https://media.istockphoto.com/id/182241866/photo/blue-baseball-cap.jpg?s=612x612&w=0&k=20&c=GVu1dRfkwQzG6Q-ZXab22Z_I4KEBHgqjPx918Ehvugc=',
         'https://media.istockphoto.com/id/1038618324/photo/blue-hat-isolated.jpg?s=612x612&w=0&k=20&c=6Tc7ExzKhb8XdvZWIMe6EI41R6Ru_v6oEpB29vwbGWE=',
       ],
+      category: 'classic'
     },
     {
       name: 'Classic Red Cap',
@@ -41,6 +44,8 @@ export class ProductsService {
         'https://media.istockphoto.com/id/613516352/photo/red-baseball-cap.jpg?s=612x612&w=0&k=20&c=nFHaUAMp7YFPuTFfBkyQmwTbRBSkIAEOsNRW-ZZKTy8=',
         'https://media.istockphoto.com/id/687059378/photo/red-hat.jpg?s=612x612&w=0&k=20&c=xWLiXRXce9qxjt_LLeJbsbMmgZu4ywIlyZIyJSpZLRw=',
       ],
+      category: 'classic'
+
     },
     {
       name: 'Classic White Cap',
@@ -51,6 +56,8 @@ export class ProductsService {
         'https://media.istockphoto.com/id/1248211740/photo/cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=efPkV4qfX2bPmqN07-PtaYerR-MZZvUwFd-DORzGCAY=',
         'https://media.istockphoto.com/id/1151188517/photo/white-canvas-fabric-cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=dwwQ8KJAJg-_es7JATr8fGJxeUgfRZ9bV2k4ZhMmLlw=',
       ],
+      category: 'classic'
+
     },
     {
       name: 'Classic Yellow Cap',
@@ -61,6 +68,8 @@ export class ProductsService {
         'https://media.istockphoto.com/id/2215790684/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=5Ct9KDxHYhmMtwNaeaqpqOjxYfROSihm-0AJEqkbjRo=',
         'https://media.istockphoto.com/id/2211895358/photo/stylish-yellow-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=bies6VcgFuX328MFHgEywFEoMRXwf9GlAC26IVDUXRQ=',
       ],
+      category: 'classic'
+
     },
     {
       name: 'Classic Olive Cap',
@@ -70,6 +79,8 @@ export class ProductsService {
         'https://media.istockphoto.com/id/2215790666/photo/one-stylish-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=NgbCFyOOOzWDME35bmLu6QN-rC_OQyk6TKgxXco2KeQ=',
         'https://media.istockphoto.com/id/2215790681/photo/one-stylish-baseball-cap-isolated-on-white-mockup-for-design.jpg?s=612x612&w=0&k=20&c=Dto6VIrJC4VopgNSxCqAj3jjgPq6tt2hPqDyanWHYIU=',
       ],
+      category: 'classic'
+
     },
   ]);
 
@@ -83,6 +94,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
     {
       name: 'Snapback Red Script',
@@ -93,6 +106,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/9733277/pexels-photo-9733277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/9733278/pexels-photo-9733278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
     {
       name: 'Snapback White Classic',
@@ -103,6 +118,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
     {
       name: 'Snapback Black Tag',
@@ -113,6 +130,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843080/pexels-photo-16843080/free-photo-of-a-man-with-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843085/pexels-photo-16843085/free-photo-of-a-man-with-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
     {
       name: 'Snapback Camo',
@@ -123,6 +142,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
     {
       name: 'Snapback Grey Urban',
@@ -133,6 +154,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'snapback'
+
     },
   ]);
 
@@ -146,6 +169,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/20349912/pexels-photo-20349912/free-photo-of-back-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/20349913/pexels-photo-20349913/free-photo-of-front-view-of-a-grey-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
     },
     {
       name: 'Truck Mesh White',
@@ -156,6 +181,9 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
+
     },
     {
       name: 'Truck White Logo',
@@ -167,6 +195,9 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
+
     },
     {
       name: 'Truck White Strapback',
@@ -177,6 +208,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/16843094/pexels-photo-16843094/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/16843098/pexels-photo-16843098/free-photo-of-a-man-with-a-white-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
     },
     {
       name: 'Truck Classic Black',
@@ -187,6 +220,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/20349880/pexels-photo-20349880/free-photo-of-black-cap-on-a-white-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/20349884/pexels-photo-20349884/free-photo-of-back-of-a-black-cap.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
     },
     {
       name: 'Truck Navy Foam',
@@ -197,6 +232,8 @@ export class ProductsService {
         'https://images.pexels.com/photos/15989931/pexels-photo-15989931/free-photo-of-a-blue-baseball-cap-and-a-blue-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'https://images.pexels.com/photos/15989933/pexels-photo-15989933/free-photo-of-a-blue-baseball-cap-and-a-blue-shirt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       ],
+      category: 'truck'
+
     },
   ]);
 

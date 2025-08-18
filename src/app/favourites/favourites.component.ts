@@ -1,7 +1,6 @@
-// favourites.component.ts
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, NavigationEnd, NavigationError } from '@angular/router';
 import { FavouritesService } from '../favourites.service';
 import { Product } from '../products.service';
 import { Subscription } from 'rxjs';
@@ -28,10 +27,7 @@ import { Subscription } from 'rxjs';
       </div>
 
       <div *ngIf="favourites.length > 0" class="favourites-grid">
-        <div 
-          *ngFor="let product of favourites" 
-          class="product-card"
-        >
+        <div *ngFor="let product of favourites" class="product-card">
           <div class="product-image-container">
             <img [src]="product.img" [alt]="product.name" class="product-image" />
             <button 
@@ -66,7 +62,6 @@ import { Subscription } from 'rxjs';
         </div>
       </div>
 
-      <!-- Clear All Button -->
       <div *ngIf="favourites.length > 0" class="clear-section">
         <button class="clear-all-btn" (click)="clearAllFavourites()">
           🗑️ Barchasini o'chirish
@@ -383,15 +378,23 @@ import { Subscription } from 'rxjs';
 export class FavouritesComponent implements OnInit, OnDestroy {
   private favouritesService = inject(FavouritesService);
   private router = inject(Router);
-
   favourites: Product[] = [];
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    // Favouriteslarni yuklash va o'zgarishlarni kuzatish
     this.subscription.add(
       this.favouritesService.favourites$.subscribe(favourites => {
         this.favourites = favourites;
+        console.log('Favourites loaded:', favourites);
+      })
+    );
+    this.subscription.add(
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          console.log('Navigation successful:', event.url);
+        } else if (event instanceof NavigationError) {
+          console.error('Navigation failed:', event.error);
+        }
       })
     );
   }
@@ -405,16 +408,24 @@ export class FavouritesComponent implements OnInit, OnDestroy {
   }
 
   clearAllFavourites(): void {
-    if (confirm('Barcha sevimli mahsulotlarni o\'chirmoqchimisiz?')) {
+    if (confirm("Barcha sevimli mahsulotlarni o'chirmoqchimisiz?")) {
       this.favouritesService.clearFavourites();
     }
   }
 
   viewProductDetails(product: Product): void {
-    // Product detail sahifasiga o'tish uchun category kerak
-    // Bu yerda default category sifatida 'classic' ni ishlatamiz
-    // Real loyihada product obyektida category bo'lishi kerak
-    this.router.navigate(['/product-detail', 'classic', product.name]);
+    console.log('Viewing product:', product);
+    try {
+      if (!product.name || !product.category) {
+        throw new Error('Invalid product data: name or category missing');
+      }
+      const encodedCategory = encodeURIComponent(product.category);
+      const encodedName = encodeURIComponent(product.name);
+      this.router.navigate(['/product-detail', encodedCategory, encodedName]);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      this.router.navigate(['/']);
+    }
   }
 
   goBack(): void {

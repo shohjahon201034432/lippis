@@ -1,4 +1,3 @@
-// product-detail.component.ts
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -421,7 +420,7 @@ import { Subscription } from 'rxjs';
           font-size: 24px;
         }
       }
-    `,
+    `
   ]
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
@@ -436,45 +435,39 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   isFavourite: boolean = false;
   private subscription: Subscription = new Subscription();
 
-  ngOnInit() {
-    const productName = this.route.snapshot.paramMap.get('name');
-    const category = this.route.snapshot.paramMap.get('category');
+  ngOnInit(): void {
+    const productName = decodeURIComponent(this.route.snapshot.paramMap.get('name') || '');
+    const category = this.route.snapshot.paramMap.get('category') || '';
+    console.log('Route params:', { category, productName });
 
     if (!productName || !category) {
+      console.error('Missing product name or category');
       this.router.navigate(['/']);
       return;
     }
 
     this.category = category;
-    let products: Product[];
-
-    if (this.category === 'classic') {
-      products = this.productsService.classic();
-    } else if (this.category === 'snapback') {
-      products = this.productsService.snapback();
-    } else if (this.category === 'truck') {
-      products = this.productsService.truck();
-    } else {
-      this.router.navigate(['/']);
-      return;
-    }
-
-    this.product = products.find((p: Product) => p.name === productName) || null;
+    // Search all products instead of category-specific arrays
+    const allProducts = [
+      ...this.productsService.classic(),
+      ...this.productsService.snapback(),
+      ...this.productsService.truck()
+    ];
+    this.product = allProducts.find(p => p.name === productName) || null;
+    console.log('Fetched product:', this.product);
 
     if (this.product && this.product.images && this.product.images.length > 0) {
       this.selectedImage = this.product.images[0];
-
-      // Check initial favorite status
       this.checkFavouriteStatus();
-
-      // Subscribe to favorites changes
       this.subscription.add(
         this.favouritesService.favourites$.subscribe(() => {
           this.checkFavouriteStatus();
         })
       );
     } else {
-      this.product = null; // Ensure product is null if invalid
+      console.error('Product not found or invalid images');
+      this.product = null;
+      this.router.navigate(['/']);
     }
   }
 
@@ -482,14 +475,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  changeImage(image: string) {
+  changeImage(image: string): void {
     this.selectedImage = image;
   }
 
   toggleFavourite(): void {
     if (this.product) {
       this.favouritesService.toggleFavourite(this.product);
-      this.checkFavouriteStatus(); // Update status immediately after toggling
+      this.checkFavouriteStatus();
     }
   }
 
@@ -501,11 +494,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  goBack() {
-    if (this.category) {
-      this.router.navigate([`/${this.category}`]);
-    } else {
-      this.router.navigate(['/']);
-    }
+  goBack(): void {
+    this.router.navigate([`/${this.category}`]);
   }
 }

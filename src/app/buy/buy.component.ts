@@ -1,4 +1,3 @@
-// buy.component.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -13,7 +12,6 @@ interface CreditCard {
   holderName: string;
 }
 
-// Xarid ma'lumotlari uchun interface
 interface PurchaseInfo {
   productName: string;
   quantity: number;
@@ -652,7 +650,6 @@ export class BuyComponent implements OnInit {
   isProcessing: boolean = false;
   showSuccessModal: boolean = false;
 
-  // Oxirgi xarid ma'lumotlarini saqlash uchun
   lastPurchase: PurchaseInfo | null = null;
 
   creditCard: CreditCard = {
@@ -681,26 +678,29 @@ export class BuyComponent implements OnInit {
   years: number[] = [];
 
   ngOnInit(): void {
-    // Generate years (current year + 10 years forward)
     const currentYear = new Date().getFullYear();
-    for (let i = currentYear; i <= currentYear + 10; i++) {
+    for (let i = currentYear - 100; i <= currentYear + 100; i++) {
       this.years.push(i);
     }
+    console.log('Years generated:', this.years);
 
     // Get product name from route parameters
     const name = this.route.snapshot.paramMap.get('name');
+    console.log('Route param name:', name);
 
     if (name) {
-      // Decode URI component in case of special characters
       const decodedName = decodeURIComponent(name);
+      console.log('Decoded name:', decodedName);
       this.product = this.productService.getProductByName(decodedName);
 
       if (!this.product) {
-        // Redirect to home if product not found
+        console.error('Product not found:', decodedName);
         this.router.navigate(['/']);
+      } else {
+        console.log('Fetched product:', this.product);
       }
     } else {
-      // Redirect to home if no product name provided
+      console.error('No product name provided in route');
       this.router.navigate(['/']);
     }
   }
@@ -722,15 +722,9 @@ export class BuyComponent implements OnInit {
   formatCardNumber(event: Event): void {
     const target = event.target as HTMLInputElement;
     let value = target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-
-    // Limit to 16 digits
     value = value.substring(0, 16);
-
-    // Format with spaces every 4 digits
     const formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
     this.creditCard.number = formattedValue;
-
-    // Update the input value
     target.value = formattedValue;
   }
 
@@ -739,20 +733,16 @@ export class BuyComponent implements OnInit {
 
     this.isProcessing = true;
 
-    // Xarid ma'lumotlarini saqlash (resetForm() dan oldin!)
     this.lastPurchase = {
       productName: this.product.name,
       quantity: this.quantity,
       totalPrice: this.getTotalPrice()
     };
 
-    // Simulate payment processing delay
     setTimeout(() => {
       this.isProcessing = false;
       this.showSuccessModal = true;
       this.showPaymentForm = false;
-
-      // Reset form to initial state
       this.resetForm();
     }, 2000);
   }

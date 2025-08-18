@@ -1,4 +1,3 @@
-// favourites.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from './products.service';
@@ -13,11 +12,9 @@ export class FavouritesService {
   private favourites: Product[] = [];
 
   constructor() {
-    // LocalStorage dan ma'lumotlarni yuklash
     this.loadFromStorage();
   }
 
-  // Favouritega qo'shish
   addToFavourites(product: Product): void {
     if (!this.isFavourite(product)) {
       this.favourites.push(product);
@@ -26,29 +23,24 @@ export class FavouritesService {
     }
   }
 
-  // Favouritedan o'chirish
   removeFromFavourites(product: Product): void {
     this.favourites = this.favourites.filter(p => p.name !== product.name);
     this.updateStorage();
     this.favouritesSubject.next([...this.favourites]);
   }
 
-  // Mahsulot favourite ekanligini tekshirish
   isFavourite(product: Product): boolean {
     return this.favourites.some(p => p.name === product.name);
   }
 
-  // Barcha favouritelarni olish
   getFavourites(): Product[] {
     return [...this.favourites];
   }
 
-  // Favouritelar sonini olish
   getFavouritesCount(): number {
     return this.favourites.length;
   }
 
-  // Favouritelarni toggle qilish (qo'shish/o'chirish)
   toggleFavourite(product: Product): void {
     if (this.isFavourite(product)) {
       this.removeFromFavourites(product);
@@ -57,12 +49,10 @@ export class FavouritesService {
     }
   }
 
-  // LocalStorage ga saqlash
   private updateStorage(): void {
     localStorage.setItem('favourites', JSON.stringify(this.favourites));
   }
 
-  // LocalStorage dan yuklash
   private loadFromStorage(): void {
     const stored = localStorage.getItem('favourites');
     if (stored) {
@@ -76,7 +66,6 @@ export class FavouritesService {
     }
   }
 
-  // Barcha favouritelarni tozalash
   clearFavourites(): void {
     this.favourites = [];
     this.updateStorage();
