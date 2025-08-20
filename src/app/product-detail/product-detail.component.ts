@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
               class="favourite-btn"
               (click)="toggleFavourite()"
               [class.active]="isFavourite"
-              [title]="isFavourite ? 'Sevimlilardan ochirish' : 'Sevimlilarga qoshish'"
+              [title]="isFavourite ? 'Favouritesdan ochirish' : 'Favouritesga qoshish'"
               [disabled]="!product"
             >
               {{ isFavourite ? '❤️' : '🤍' }}
@@ -61,7 +61,7 @@ import { Subscription } from 'rxjs';
               [class.active]="isFavourite"
               [disabled]="!product"
             >
-              {{ isFavourite ? ' Sevimlilardan ochirish' : 'Sevimlilarga qoshish' }}
+              {{ isFavourite ? 'Favouritesdan ochirish' : 'Favouritesga qoshish' }}
             </button>
           </div>
         </div>

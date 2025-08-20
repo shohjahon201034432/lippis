@@ -421,12 +421,13 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       }
       const encodedCategory = encodeURIComponent(product.category);
       const encodedName = encodeURIComponent(product.name);
-      this.router.navigate(['/product-detail', encodedCategory, encodedName]);
+      this.router.navigate(['/product', encodedCategory, encodedName]);
     } catch (error) {
       console.error('Navigation error:', error);
       this.router.navigate(['/']);
     }
   }
+
 
   goBack(): void {
     this.router.navigate(['/']);
