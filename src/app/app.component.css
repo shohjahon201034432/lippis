@@ -1,11 +1,16 @@
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Main header styling */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 .main-header {
     background: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -15,7 +20,6 @@
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* Container for navbar content */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -25,7 +29,6 @@
     padding: 1rem 2rem;
 }
 
-/* Logo styling */
 .logo a {
     font-size: 1.8rem;
     font-weight: bold;
@@ -39,7 +42,6 @@
     color: #007bff;
 }
 
-/* Main navigation */
 .main-nav ul {
     display: flex;
     list-style: none;
@@ -73,13 +75,11 @@
     font-weight: 600;
 }
 
-/* Router outlet container */
 .router {
     min-height: calc(100vh - 80px);
     background-color: #f8f9fa;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -118,4 +118,140 @@
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
     }
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    max-width: 90%;
+    gap: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    left: 35%;
+    top: 12%;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+form::before {
+    content: '🔐 Sign Up';
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+input::placeholder {
+    color: #666;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4);
+}
+
+button:active {
+    transform: translateY(-1px);
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+}
+
+.password-input {
+    width: 100%;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+.toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9998;
+}
+
+.welcome-back-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }

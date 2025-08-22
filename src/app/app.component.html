@@ -1,4 +1,47 @@
-<header class="main-header">
+<form *ngIf="!formsubmitted" [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
+  <input type="text" formControlName="name" placeholder="Enter name">
+  <div *ngIf="myform.get('name')?.touched && myform.get('name')?.invalid" style="color: red;">
+    <small *ngIf="myform.get('name')?.errors?.['required']">Name is required.</small>
+    <small *ngIf="myform.get('name')?.errors?.['minlength']">Name must be at least 3 characters.</small>
+    <small *ngIf="myform.get('name')?.errors?.['capitalized']">Name must start with a capital letter.</small>
+  </div>
+
+  <input type="number" formControlName="age" placeholder="Enter age">
+  <div *ngIf="myform.get('age')?.touched && myform.get('age')?.invalid" style="color: red;">
+    <small *ngIf="myform.get('age')?.errors?.['required']">Age is required.</small>
+    <small *ngIf="myform.get('age')?.errors?.['min']">Age must be at least 12.</small>
+  </div>
+
+  <input type="email" formControlName="email" placeholder="Enter email">
+  <div *ngIf="myform.get('email')?.touched && myform.get('email')?.invalid" style="color: red;">
+    <small *ngIf="myform.get('email')?.errors?.['required']">Email is required.</small>
+    <small *ngIf="myform.get('email')?.errors?.['email']">Enter a valid email.</small>
+    <small *ngIf="myform.get('email')?.errors?.['invaliddomain']"> Only &#64;gmail.com, &#64;yahoo.com, &#64;mail.ru,
+      &#64;hotmail.com
+      are allowed.</small>
+  </div>
+
+  <div class="password-wrapper">
+    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter password"
+      class="password-input">
+    <i class="toggle-icon fa" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"
+      (click)="togglePasswordVisibility()"></i>
+  </div>
+  <div *ngIf="myform.get('password')?.touched && myform.get('password')?.invalid" style="color: red;">
+    <small *ngIf="myform.get('password')?.errors?.['required']">Password is required.</small>
+    <small *ngIf="myform.get('password')?.errors?.['minlength']">Password must be at least 7 characters long.</small>
+    <small *ngIf="myform.get('password')?.errors?.['specialCharsNotAllowed']">Special characters are not
+      allowed.</small>
+  </div>
+
+  <button type="submit">Sign up</button>
+</form>
+
+<div class="overlay" *ngIf="showWelcomeBack"></div>
+
+<div *ngIf="showWelcomeBack" style="font-size: 1.5rem; color:green; margin-top: 20px;">Welcome Back!</div>
+
+<header class="main-header" *ngIf="formsubmitted">
   <div class="container">
     <div class="logo">
       <a routerLink="/">LIPPIS</a>
@@ -14,6 +57,6 @@
   </div>
 </header>
 
-<div class="router">
+<div class="router" *ngIf="formsubmitted">
   <router-outlet></router-outlet>
 </div>

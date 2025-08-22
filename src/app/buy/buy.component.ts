@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,8 @@ interface PurchaseInfo {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div *ngIf="product" class="buy-container">
+  <div (window:scroll)="onWindowScroll()" class="content">
+  <div *ngIf="product" class="buy-container">
       <button class="back-btn" (click)="goBack()">← Orqaga</button>
       
       <div class="product-card">
@@ -157,8 +158,43 @@ interface PurchaseInfo {
         <button class="modal-btn secondary" (click)="closeModal()">❌ Yopish</button>
       </div>
     </div>
+</div>
+
+<button
+  class="scroll-to-top"
+  *ngIf="scroll"
+  (click)="scrollToTop()"
+  aria-label="Scroll to top"
+>
+  ↑
+</button>
+
+    
   `,
   styles: [`
+  .scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
+
     .buy-container {
       max-width: 1200px;
       margin: 40px auto;
@@ -660,6 +696,16 @@ export class BuyComponent implements OnInit {
     holderName: ''
   };
 
+  scroll = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.scroll = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) > 100;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   months = [
     { value: '01', label: '01 - Yanvar' },
     { value: '02', label: '02 - Fevral' },

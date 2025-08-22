@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -34,5 +34,21 @@ export class HomeComponent {
 
   navigateToCategory(category: string) {
     this.router.navigate([`/${category}`]);
+  }
+
+  // Property e'lon qilish
+  scroll = false;
+
+  // HostListener import qilish
+
+  // Scroll hodisasini kuzatish
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.scroll = window.scrollY > 100;
+  }
+
+  // Yuqoriga chiqish funksiyasi
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

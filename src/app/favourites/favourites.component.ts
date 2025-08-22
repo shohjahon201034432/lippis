@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd, NavigationError } from '@angular/router';
 import { FavouritesService } from '../favourites.service';
@@ -68,8 +68,39 @@ import { Subscription } from 'rxjs';
         </button>
       </div>
     </div>
+    <!-- Scroll to top tugmasi -->
+<button
+  class="scroll-to-top"
+  *ngIf="scroll"
+  (click)="scrollToTop()"
+  aria-label="Scroll to top"
+>
+  ↑
+</button>
   `,
   styles: [`
+  .scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
     .favourites-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -398,7 +429,21 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       })
     );
   }
+  // Property e'lon qilish
+  scroll = false;
 
+  // HostListener import qilish
+
+  // Scroll hodisasini kuzatish
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.scroll = window.scrollY > 100;
+  }
+
+  // Yuqoriga chiqish funksiyasi
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
