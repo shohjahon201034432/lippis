@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup, FormControl, Validators, AbstractControl, ValidationErrors,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgIf, RouterOutlet, ReactiveFormsModule],
+  imports: [NgIf, RouterOutlet, ReactiveFormsModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app'
+export class AppComponent implements OnInit {
+  title = 'app';
 
   formsubmitted = false;
   showWelcomeBack = false;
@@ -39,6 +42,13 @@ export class AppComponent {
     ])
   });
 
+  ngOnInit() {
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      this.formsubmitted = true;
+    }
+  }
+
   onSubmit() {
     if (this.myform.valid) {
       const formData = this.myform.value;
@@ -60,7 +70,6 @@ export class AppComponent {
         }
       }
 
-      // Yangi user ma'lumotlarini localStorage-ga saqlaymiz
       localStorage.setItem('userData', JSON.stringify(formData));
       this.formsubmitted = true;
     } else {

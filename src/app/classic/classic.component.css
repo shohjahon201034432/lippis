@@ -95,8 +95,15 @@
     align-items: stretch;
 }
 
+.product-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    border-color: #00479d;
+}
 
 .product-card {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -111,12 +118,6 @@
     border: 1px solid transparent;
 }
 
-.product-card:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);
-    border-color: #00479d;
-}
-
 .product-card img {
     width: 100%;
     height: 200px;
@@ -127,8 +128,9 @@
 }
 
 .product-card:hover img {
-    transform: scale(1.05);
+    transform: scale(1.2);
 }
+
 
 .product-card h4 {
     margin: 6px 0;
@@ -275,4 +277,65 @@
 
 .scroll-to-top:hover {
     background-color: #0056b3;
+}
+
+.reviews-section {
+    margin-top: 20px;
+    text-align: left;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    position: absolute;
+}
+
+.review-item {
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+}
+
+.stars {
+    color: #f7941d;
+    /* sariq rang yulduzchalar uchun */
+    font-size: 18px;
+}
+
+.star {
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.star.filled {
+    color: #f7941d;
+}
+
+.star-rating span {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 60px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    resize: vertical;
+}
+
+button {
+    background-color: #00479d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #003266;
 }
